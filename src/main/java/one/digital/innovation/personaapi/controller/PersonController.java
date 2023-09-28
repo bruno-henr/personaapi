@@ -1,5 +1,7 @@
 package one.digital.innovation.personaapi.controller;
 
+import jakarta.validation.Valid;
+import one.digital.innovation.personaapi.DTO.request.PersonDTO;
 import one.digital.innovation.personaapi.DTO.response.MessageResponseDTO;
 import one.digital.innovation.personaapi.entity.Person;
 import one.digital.innovation.personaapi.service.PersonService;
@@ -20,8 +22,8 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO createPerson(@RequestBody Person person) {
-        return this.personService.createPerson(person);
+    public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO) {
+        return this.personService.createPerson(personDTO);
     }
 
 }
