@@ -1,6 +1,7 @@
 package one.digital.innovation.personaapi.controller;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import one.digital.innovation.personaapi.DTO.request.PersonDTO;
 import one.digital.innovation.personaapi.DTO.response.MessageResponseDTO;
 import one.digital.innovation.personaapi.entity.Person;
@@ -14,14 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/people")
+@AllArgsConstructor(onConstructor = @__(@Autowired))// cria um construtor
 public class PersonController {
 
     private PersonService personService;
-
-    @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -37,6 +34,11 @@ public class PersonController {
     @GetMapping("/{id}")
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
         return this.personService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
+        return this.personService.updateById(id, personDTO);
     }
 
     @DeleteMapping("/{id}")
