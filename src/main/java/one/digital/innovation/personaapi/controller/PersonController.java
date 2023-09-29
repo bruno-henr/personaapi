@@ -39,4 +39,10 @@ public class PersonController {
         return this.personService.findById(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(Long id) throws PersonNotFoundException {
+        this.personService.delete(id);
+    }
+
 }
